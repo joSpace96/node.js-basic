@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 
 // use는 미들웨어 등록
 app.use("/", home);
+app.use(express.static(`${__dirname}/src/public`));
 
 // 모듈화
 module.exports = app;
