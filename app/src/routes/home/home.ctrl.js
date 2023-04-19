@@ -1,17 +1,37 @@
 "use strict";
 
-const hello = (req, res) => {
-  res.render("home/index");
-  console.log("접속");
+const users = {
+  id: ["손사장", "황이사", "박부장", "조대리"],
+  password: ["1", "12", "123", "1234"],
 };
 
-const login = (req, res) => {
-  res.render("home/login");
-  console.log("로그인");
+const output = {
+  home: (req, res) => {
+    res.render("home/index");
+  },
+
+  login: (req, res) => {
+    res.render("home/login");
+  },
 };
 
+const process = {
+  login: (req, res) => {
+    const id = req.body.id,
+      password = req.body.password;
+
+    if (users.id.includes(id)) {
+      const idx = users.id.indexOf(id);
+      if (users.password[idx] === password) {
+        return res.json({ success: true });
+      }
+    }
+
+    return res.json({ success: false });
+  },
+};
 // 모듈화
 module.exports = {
-  hello,
-  login,
+  output,
+  process,
 };
